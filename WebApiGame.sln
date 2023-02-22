@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiGame", "WebApiGame\WebApiGame.csproj", "{3A2D1E69-4625-45B7-8396-02F81C997AD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContext", "DataContext\DataContext.csproj", "{314CD21A-1B4A-41D5-BAD9-6F9CFEF2866F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtos", "Dtos\Dtos.csproj", "{94ED7C7F-6930-4806-8703-D94266A96A29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A2D1E69-4625-45B7-8396-02F81C997AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A2D1E69-4625-45B7-8396-02F81C997AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A2D1E69-4625-45B7-8396-02F81C997AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A2D1E69-4625-45B7-8396-02F81C997AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314CD21A-1B4A-41D5-BAD9-6F9CFEF2866F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314CD21A-1B4A-41D5-BAD9-6F9CFEF2866F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314CD21A-1B4A-41D5-BAD9-6F9CFEF2866F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314CD21A-1B4A-41D5-BAD9-6F9CFEF2866F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94ED7C7F-6930-4806-8703-D94266A96A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94ED7C7F-6930-4806-8703-D94266A96A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94ED7C7F-6930-4806-8703-D94266A96A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94ED7C7F-6930-4806-8703-D94266A96A29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0DA9BBC-1803-47C0-8B33-2EC2E58BC39F}
+	EndGlobalSection
+EndGlobal
