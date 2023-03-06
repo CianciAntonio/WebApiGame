@@ -1,13 +1,8 @@
 ﻿using DataContext.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataContext.UnitOfWork
 {
-    public class UnitOfWork :IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _appDbContext;
         public IMatchesRepo MatchesRepo { get; }

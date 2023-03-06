@@ -1,9 +1,11 @@
-﻿using DataContext.Models;
+﻿using DataContext;
+using DataContext.Models;
 using DataContext.UnitOfWork;
 using Dtos.ModelRequest;
 using Dtos.ModelResponse;
 using MapsterMapper;
-using Microsoft.Extensions.FileSystemGlobbing;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace WebApiGame.LogicBusiness
 {
@@ -18,6 +20,20 @@ namespace WebApiGame.LogicBusiness
             Mapper = mapper;
         }
 
+        public async Task<IEnumerable> GetGamesRecord()
+        {
+            var result = await UnitOfWork.GamesRepo.GetGamesRecord();
+
+            return result;
+        }
+
+        public async Task<IEnumerable> GetPlayersRecords()
+        {
+            var result = await UnitOfWork.PlayersRepo.GetPlayersRecords();
+
+            return result;
+        }
+
         public async Task AddPlayerAsync(PlayerRequest playerReq)
         {
             Players player = Mapper.Map<Players>(playerReq);
@@ -30,7 +46,7 @@ namespace WebApiGame.LogicBusiness
         public async Task<List<PlayerResponse>> GetAllPlayersAsync()
         {
             List<PlayerResponse> playersDto = new List<PlayerResponse>();
-                
+            
             List<Players> players = await UnitOfWork.PlayersRepo.GetAllPlayersAsync();
 
             if (players == null)
@@ -47,16 +63,37 @@ namespace WebApiGame.LogicBusiness
             return playersDto;
         }
 
-        public async Task<Players> GetPlayerAsync(string id)
+        public async Task<PlayerResponse> GetPlayerAsync(string id)
         {
             Players player = await UnitOfWork.PlayersRepo.GetPlayerAsync(id);
 
             if (player == null)
                 return null;
 
+            PlayerResponse playerDto = Mapper.Map<PlayerResponse>(player);
+
             UnitOfWork.Dispose();
 
-            return player;
+            return playerDto;
+        }
+
+        public async Task<PlayerResponse> UpdatePlayer(PlayerRequest playerReq, string id)
+        {
+            Players dbPlayer = await UnitOfWork.PlayersRepo.GetPlayerAsync(id);
+
+            if(dbPlayer == null)
+                return null;
+
+            dbPlayer.firstName = playerReq.firstName;
+            dbPlayer.lastName = playerReq.lastName;
+
+            UnitOfWork.PlayersRepo.UpdatePlayerAsync(dbPlayer);
+            await UnitOfWork.SaveAsync();
+            UnitOfWork.Dispose();
+
+            var playerDto = Mapper.Map<PlayerResponse>(dbPlayer);
+
+            return playerDto;
         }
 
         public async Task RemovePlayer(string id)
@@ -64,6 +101,16 @@ namespace WebApiGame.LogicBusiness
             Players dbPlayer = await UnitOfWork.PlayersRepo.GetPlayerAsync(id);
 
             UnitOfWork.PlayersRepo.RemovePlayer(dbPlayer);
+            await UnitOfWork.SaveAsync();
+            UnitOfWork.Dispose();
+        }
+
+        public async Task RemovePlayers()
+        {
+            List<Players> players = await UnitOfWork.PlayersRepo.GetAllPlayersAsync();
+
+            UnitOfWork.PlayersRepo.RemoveAllPlayers(players);
+            await UnitOfWork.SaveAsync();
             UnitOfWork.Dispose();
         }
 
@@ -76,20 +123,39 @@ namespace WebApiGame.LogicBusiness
             UnitOfWork.Dispose();
         }
 
-        //public async Task<List<Matches>> GetAllMatchsAsync()
-        //{
+        public async Task<List<MatchesResponse>> GetAllMatchsAsync()
+        {
+            List<MatchesResponse> matchesDto = new List<MatchesResponse>();
 
-        //}
+            List<Matches> matches = await UnitOfWork.MatchesRepo.GetAllMatchesAsync();
+
+            if (matches== null)
+                return null;
+
+            foreach (var match in matches)
+            {
+                MatchesResponse matchDto = Mapper.Map<MatchesResponse>(match);
+                matchesDto.Add(matchDto);
+            }
+
+            UnitOfWork.Dispose();
+
+            return matchesDto;
+        }
 
         //public async Task<Matches> GetMatchAsync(string id)
         //{
 
         //}
 
-        //public async Task RemoveMatch(string id)
-        //{
+        public async Task RemoveMatch(string id)
+        {
+            Matches match = await UnitOfWork.MatchesRepo.GetMatchAsync(id);
 
-        //}
+            UnitOfWork.MatchesRepo.RemoveMatch(match);
+            await UnitOfWork.SaveAsync();
+            UnitOfWork.Dispose();
+        }
 
         public async Task AddGameAsync(GameRequest gameReq)
         {

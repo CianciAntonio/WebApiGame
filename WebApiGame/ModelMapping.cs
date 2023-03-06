@@ -17,8 +17,7 @@ namespace WebApiGame
 
             config.ForType<Games, GameResponse>()
                 .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Name, src => src.Name)
-                .Map(dest => dest.matches, src => src.match);
+                .Map(dest => dest.Name, src => src.Name);
 
             config.ForType<Matches, MatchesResponse>()
                 .Map(dest => dest.Id, src => src.Id)

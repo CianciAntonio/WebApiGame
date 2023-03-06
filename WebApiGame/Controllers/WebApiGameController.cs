@@ -17,8 +17,29 @@ namespace WebApiGame.Controllers
             _apiWebService = webApiWebService;
         }
 
+        [HttpGet]
+        [Route("GetGamesRecord")]
+        [Tags("Games")]
+        public async Task<IActionResult> GetGamesRecord()
+        {
+            var allGames = await _apiWebService.GetGamesRecord();
+
+            return new OkObjectResult(allGames);
+        }
+
+        [HttpGet]
+        [Route("GetPlayersRecord")]
+        [Tags("Players")]
+        public async Task<IActionResult> GetPlayersRecord()
+        {
+            var allPlayers = await _apiWebService.GetPlayersRecords();
+
+            return new OkObjectResult(allPlayers);
+        }
+
         [HttpPost]
         [Route("AddNewPlayer")]
+        [Tags("Players")]
         public async Task<IActionResult> AddPlayer(PlayerRequest player)
         {
             await _apiWebService.AddPlayerAsync(player);
@@ -28,6 +49,7 @@ namespace WebApiGame.Controllers
 
         [HttpGet]
         [Route("GetAllPlayers")]
+        [Tags("Players")]
         public async Task<IActionResult> GetPlayers()
         {
             var allPlayers = await _apiWebService.GetAllPlayersAsync();
@@ -35,8 +57,49 @@ namespace WebApiGame.Controllers
             return new OkObjectResult(allPlayers);
         }
 
+        [HttpGet]
+        [Route("GetPlayer")]
+        [Tags("Players")]
+        public async Task<IActionResult> GetPlayer(string id)
+        {
+            var player = await _apiWebService.GetPlayerAsync(id);
+
+            return new OkObjectResult(player);
+        }
+
+        [HttpPut]
+        [Route("UpdatePlayer")]
+        [Tags("Players")]
+        public async Task<IActionResult> UpdatePlayer(PlayerRequest playerReq, string id)
+        {
+            await _apiWebService.UpdatePlayer(playerReq, id);
+
+            return new OkObjectResult("Player Updated");
+        }
+
+        [HttpDelete]
+        [Route("RemovePlayer")]
+        [Tags("Players")]
+        public async Task<IActionResult> RemovePlayer(string id)
+        {
+            await _apiWebService.RemovePlayer(id);
+
+            return new OkObjectResult("Player Removed");
+        }
+
+        [HttpDelete]
+        [Route("RemoveAllPlayers")]
+        [Tags("Players")]
+        public async Task<IActionResult> RemovePlayers()
+        {
+            await _apiWebService.RemovePlayers();
+
+            return new OkObjectResult("PLayers Removed");
+        }
+
         [HttpPost]
         [Route("AddNewMatch")]
+        [Tags("Matches")]
         public async Task<IActionResult> AddMatch(MatchRequest match)
         {
             await _apiWebService.AddMatchAsync(match);
@@ -44,8 +107,29 @@ namespace WebApiGame.Controllers
             return new OkObjectResult(match);
         }
 
+        [HttpGet]
+        [Route("GetAllMatches")]
+        [Tags("Matches")]
+        public async Task<IActionResult> GetMatches()
+        {
+            var allMatches = await _apiWebService.GetAllMatchsAsync();
+
+            return new OkObjectResult(allMatches);
+        }
+
+        [HttpDelete]
+        [Route("RemoveMatch")]
+        [Tags("Matches")]
+        public async Task<IActionResult> RemoveMatch(string id)
+        {
+            await _apiWebService.RemoveMatch(id);
+
+            return new OkObjectResult("Match Removed");
+        }
+
         [HttpPost]
         [Route("AddNewGame")]
+        [Tags("Games")]
         public async Task<IActionResult> AddGame(GameRequest game)
         {
             await _apiWebService.AddGameAsync(game);
@@ -55,6 +139,7 @@ namespace WebApiGame.Controllers
 
         [HttpGet]
         [Route("GetAllGames")]
+        [Tags("Games")]
         public async Task<IActionResult> GetGames()
         {
             var allGames = await _apiWebService.GetAllGamesAsync();

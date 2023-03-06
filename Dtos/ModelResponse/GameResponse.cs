@@ -10,6 +10,5 @@ namespace Dtos.ModelResponse
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<MatchesResponse> matches { get; set; }
     }
 }

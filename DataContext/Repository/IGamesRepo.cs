@@ -1,5 +1,6 @@
 ﻿using DataContext.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace DataContext.Repository
 {
     public interface IGamesRepo : IRepository<Games>
     {
+        Task<IEnumerable> GetGamesRecord();
         Task<List<Games>> GetAllGamesAsync();
         Task<Games> GetGameAsync(string id);
         Task AddGameAsync(Games game);

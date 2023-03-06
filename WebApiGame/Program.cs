@@ -21,7 +21,6 @@ namespace WebApiGame
             builder.Services.AddSingleton(config);
             builder.Services.AddScoped<IMapper, ServiceMapper>();
 
-
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IApiWebService, ApiWebService>();
 
